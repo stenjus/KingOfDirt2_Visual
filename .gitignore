@@ -2,10 +2,13 @@
 # Unity generated #
 # =============== #
 [Tt]emp/
+.vs/
+obj/
 [Oo]bj/
 [Bb]uild
 /[Bb]uilds/
 /[Ll]ibrary/
+/Library/
 sysinfo.txt
 *.stackdump
 /Assets/AssetStoreTools*
