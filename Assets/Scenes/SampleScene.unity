@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 85b5c8420e9076e4bb982d3191051c76, type: 3}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.18209162, g: 0.22778666, b: 0.30738905, a: 1}
+  m_IndirectSpecularColor: {r: 0.16981651, g: 0.21315567, b: 0.29092935, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -324,39 +324,6 @@ MonoBehaviour:
   shadowmaskDenoise: 0
   indirectIntensity: 1
   UID: -1846854454
---- !u!114 &269220259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
-  m_Name: SampleScene_LMA1
-  m_EditorClassIdentifier: 
-  resolution: 512
-  bitmask: 1
-  id: 1
-  sortingID: 1
-  isImplicit: 1
-  area: 0
-  totalVertexCount: 0
-  vertexCounter: 0
-  sceneLodLevel: -1
-  sceneName: 
-  containsTerrains: 0
-  probes: 0
-  mode: 1
-  renderMode: 1000
-  renderDirMode: 1000
-  computeSSS: 0
-  sssSamples: 16
-  sssDensity: 10
-  sssColor: {r: 1, g: 1, b: 1, a: 1}
-  fakeShadowBias: 0
-  transparentSelfShadow: 0
 --- !u!43 &432572419
 Mesh:
   m_ObjectHideFlags: 0
@@ -1466,6 +1433,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214698404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0b4dd729a12d046982652f834580a2, type: 3}
+  m_Name: SampleScene_LMA1
+  m_EditorClassIdentifier: 
+  resolution: 512
+  bitmask: 1
+  id: 1
+  sortingID: 1
+  isImplicit: 1
+  area: 0
+  totalVertexCount: 0
+  vertexCounter: 0
+  sceneLodLevel: -1
+  sceneName: 
+  containsTerrains: 0
+  probes: 0
+  mode: 1
+  renderMode: 1000
+  renderDirMode: 1000
+  computeSSS: 0
+  sssSamples: 16
+  sssDensity: 10
+  sssColor: {r: 1, g: 1, b: 1, a: 1}
+  fakeShadowBias: 0
+  transparentSelfShadow: 0
 --- !u!43 &1363630785
 Mesh:
   m_ObjectHideFlags: 0
@@ -1626,7 +1626,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1538622184
+--- !u!114 &1490572122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   renderSettingsForceRebuildGeometry: 1
   renderSettingsPerformRendering: 1
   renderSettingsUserRenderMode: 0
-  renderSettingsDistanceShadowmask: 0
+  renderSettingsDistanceShadowmask: 1
   renderSettingsSettingsMode: 1
   renderSettingsFixSeams: 1
   renderSettingsDenoise: 1
@@ -1749,7 +1749,7 @@ MonoBehaviour:
   renderSettingsUnwrapper: 0
   renderSettingsExportTerrainTrees: 0
   renderSettingsShowPerf: 1
-  lastBakeTime: 35
+  lastBakeTime: 36
   enlightenWarningShown: 0
   enlightenWarningShown2: 0
   lightUIDs: e751f385ca3ceb91
@@ -1815,8 +1815,8 @@ MonoBehaviour:
     cookie: {fileID: 0}
     angle: 30
   implicitGroups:
-  - {fileID: 1538622184}
-  - {fileID: 269220259}
+  - {fileID: 1490572122}
+  - {fileID: 1214698404}
   implicitGroupedObjects:
   - {fileID: 2023295207}
   - {fileID: 2023295208}
