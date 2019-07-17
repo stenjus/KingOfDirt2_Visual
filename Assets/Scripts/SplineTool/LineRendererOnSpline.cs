@@ -44,7 +44,8 @@ public class LineRendererOnSpline : MonoBehaviour
         {
             var P = 0f;
             var start = GetSpline().GetNonUniformPoint(0f);
-            Vector3 _FirstPoint = -(transform.position - start);
+            Vector3 _FirstPoint = start;
+            _FirstPoint = transform.InverseTransformPoint(_FirstPoint);
             _LineRenderer.positionCount++;
             _LineRenderer.SetPosition(_LineRenderer.positionCount - 1, _FirstPoint);
             var step = 1f / resolution;
@@ -53,9 +54,11 @@ public class LineRendererOnSpline : MonoBehaviour
                 _LineRenderer.positionCount++;
                
                 P += step;
-                var here = -(transform.position - GetSpline().GetNonUniformPoint(P));
+                var here = GetSpline().GetNonUniformPoint(P);
+                here = transform.InverseTransformPoint(here);
                 _LineRenderer.SetPosition(_LineRenderer.positionCount - 1, here);
-                start = here;
+
+               start = here;
             } while (P + step <= 1);
         }
 
