@@ -12,6 +12,7 @@ public class LineRendererOnSplineEditor : Editor
     SerializedProperty _VertexColor;
 
     private Mesh _savedMesh;
+    private GameObject _instancedObj;
 
     public void OnEnable()
     {
@@ -30,34 +31,44 @@ public class LineRendererOnSplineEditor : Editor
 
         if (GUILayout.Button("Bake And Save Mesh"))
         {
+            //Save Asset to AssetDatabase
             string path = EditorUtility.SaveFilePanelInProject("Save Generated mesh:", "Line_Render_Baked", "asset", "Choose directory for saving asset", "Assets/");
             Object saveObj = Instantiate(LineRendererOnSpline()._BakedMesh);
             AssetDatabase.CreateAsset(saveObj, path);
             AssetDatabase.SaveAssets();
-            _savedMesh = LineRendererOnSpline()._BakedMesh;
-        }
+            _savedMesh = (Mesh)saveObj;
 
-        if(GUILayout.Button("Instance Saved Object"))
-        {
-            GameObject _instancedObj = new GameObject() { name = "Combined Spline"};
+            //Remove old instanced baked mesh
+            if (_instancedObj)
+            {
+                Debug.Log("Destroy previous obj");
+                Object.DestroyImmediate(_instancedObj.gameObject);
+            }
+
+            //Instance mesh to scene
+            _instancedObj = new GameObject() { name = "Baked Spline" };
+
             _instancedObj.AddComponent<MeshFilter>();
-            _instancedObj.AddComponent<MeshRenderer>();
-            //_instancedObj_MeshRenderer.material = new Material(Shader.Find("Diffuse"));
+            MeshRenderer _instancedObj_MeshRenderer = _instancedObj.AddComponent<MeshRenderer>();
+            _instancedObj_MeshRenderer.material = new Material(Shader.Find("Standard"));
             Transform _targetTransform = ((LineRendererOnSpline)target).transform;
             _instancedObj.transform.position = _targetTransform.position;
             _instancedObj.transform.rotation = _targetTransform.rotation;
             MeshFilter _instancedObj_MeshFilter = _instancedObj.GetComponent<MeshFilter>();
             _instancedObj_MeshFilter.mesh = _savedMesh;
-            Debug.Log(_savedMesh);
-            //_instancedObj = Instantiate(_instancedO_savedMeshbj, _targetTransform.position, _targetTransform.rotation);
+            MeshCollider _instancedObj_MeshCollider = _instancedObj.AddComponent<MeshCollider>();
+            _instancedObj_MeshCollider.sharedMesh = _savedMesh;
         }
-        if(_savedMesh != null)
-        EditorGUILayout.HelpBox("Generated mesh Vertex count: " + LineRendererOnSpline()._BakedMesh.vertices.Length, MessageType.Info);
+        Debug.Log(_instancedObj);
+
+        if (_savedMesh != null)
+            EditorGUILayout.HelpBox("Generated mesh Vertex count: " + LineRendererOnSpline()._BakedMesh.vertices.Length, MessageType.Info);
 
         serializedObject.ApplyModifiedProperties();
     }
 
-    public LineRendererOnSpline LineRendererOnSpline() {
+    public LineRendererOnSpline LineRendererOnSpline()
+    {
         return (LineRendererOnSpline)target;
     }
 }
