@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 [CustomEditor(typeof(LineRendererOnSpline))]
 public class LineRendererOnSplineEditor : Editor
@@ -29,11 +30,26 @@ public class LineRendererOnSplineEditor : Editor
 
         if (GUILayout.Button("Bake And Save Mesh"))
         {
-            string path = EditorUtility.SaveFilePanelInProject("Save Generated mesh:", "Line_Render_Baked", "asset", "Choose directory for saving asset", "/Assets");
-            Debug.Log(path);
-            AssetDatabase.CreateAsset(LineRendererOnSpline()._BakedMesh, path);
+            string path = EditorUtility.SaveFilePanelInProject("Save Generated mesh:", "Line_Render_Baked", "asset", "Choose directory for saving asset", "Assets/");
+            Object saveObj = Instantiate(LineRendererOnSpline()._BakedMesh);
+            AssetDatabase.CreateAsset(saveObj, path);
             AssetDatabase.SaveAssets();
             _savedMesh = LineRendererOnSpline()._BakedMesh;
+        }
+
+        if(GUILayout.Button("Instance Saved Object"))
+        {
+            GameObject _instancedObj = new GameObject() { name = "Combined Spline"};
+            _instancedObj.AddComponent<MeshFilter>();
+            _instancedObj.AddComponent<MeshRenderer>();
+            //_instancedObj_MeshRenderer.material = new Material(Shader.Find("Diffuse"));
+            Transform _targetTransform = ((LineRendererOnSpline)target).transform;
+            _instancedObj.transform.position = _targetTransform.position;
+            _instancedObj.transform.rotation = _targetTransform.rotation;
+            MeshFilter _instancedObj_MeshFilter = _instancedObj.GetComponent<MeshFilter>();
+            _instancedObj_MeshFilter.mesh = _savedMesh;
+            Debug.Log(_savedMesh);
+            //_instancedObj = Instantiate(_instancedO_savedMeshbj, _targetTransform.position, _targetTransform.rotation);
         }
         if(_savedMesh != null)
         EditorGUILayout.HelpBox("Generated mesh Vertex count: " + LineRendererOnSpline()._BakedMesh.vertices.Length, MessageType.Info);
